@@ -1,0 +1,7 @@
+we use chirouter
+
+
+chirouter:a thrid party light weight does http routers
+	installation : go get github.com/go-chi/chi
+		      -go get github.com/go-chi/cors
+
