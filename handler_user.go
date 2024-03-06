@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/BoruTamena/RssAggergetor/internal/auth"
 	"github.com/BoruTamena/RssAggergetor/internal/database"
 	"github.com/google/uuid"
 )
@@ -41,21 +40,7 @@ func (apicf *apiConfig) handlerCreateUser(w http.ResponseWriter, r *http.Request
 
 }
 
-func (apicf *apiConfig) handleGetUser(w http.ResponseWriter, r *http.Request) {
-
-	apikey, err := auth.GetApiKey(r.Header)
-
-	if err != nil {
-		respondWithErr(w, 400, fmt.Sprintf("auth error: %v	", err))
-		return
-	}
-
-	user, err := apicf.db.GetUserByApiKey(r.Context(), apikey)
-
-	if err != nil {
-		respondWithErr(w, 400, fmt.Sprintf("couldn't get user :%v", err))
-		return
-	}
+func (apicf *apiConfig) handleGetUser(w http.ResponseWriter, r *http.Request, user database.User) {
 
 	respondWithJson(w, 200, databaseUsertoUser(user))
 }
